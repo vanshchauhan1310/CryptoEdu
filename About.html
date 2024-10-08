@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocking the Secrets of Cryptography</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --muted-foreground: #6b7280;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .text-center { text-align: center; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mt-4 { margin-top: 1rem; }
+        
+        .text-4xl {
+            font-size: 2.25rem;
+            font-weight: bold;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+        }
+        
+        .text-muted-foreground {
+            color: var(--muted-foreground);
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        
+        .timeline-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        
+        .timeline-line {
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+        
+        .icon-container svg {
+            width: 24px;
+            height: 24px;
+            color: var(--primary-color);
+        }
+        
+        button.primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1.125rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+        header {
+    padding: 1rem;
+    background-color: #f5f5f5;
+}
+
+.back-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">Back to Home</a>
+    </header>
+    <div class="container">
+        <section class="text-center mb-12">
+            <h1 class="text-4xl mb-4">Unlocking the Secrets of Cryptography</h1>
+            <p class="text-xl text-muted-foreground">
+                Dive into the fascinating world of codes, ciphers, and secure communication
+            </p>
+        </section>
+
+        <section class="grid md:grid-cols-2 mb-12">
+            <div class="card">
+                <h2 class="text-2xl mb-4">What is Cryptography?</h2>
+                <p>
+                    Cryptography is the practice and study of techniques for secure communication in the presence of adversaries.
+                    It's about constructing and analyzing protocols that prevent third parties or the public from reading private messages.
+                </p>
+            </div>
+            <div class="card">
+                <h2 class="text-2xl mb-4">Why is it Important?</h2>
+                <p>
+                    In our digital age, cryptography is crucial for protecting privacy, securing financial transactions,
+                    safeguarding communications, and ensuring the integrity of our data. It's the backbone of cybersecurity.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl mb-4">Timeline of Cryptographic Milestones</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl">Ancient Times</h3>
+                        <p class="text-muted-foreground">Early ciphers like the Caesar cipher are developed</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl">World War II</h3>
+                        <p class="text-muted-foreground">Enigma machine and the birth of modern cryptography</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl">1976</h3>
+                        <p class="text-muted-foreground">Public-key cryptography introduced by Diffie and Hellman</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl">Present</h3>
+                        <p class="text-muted-foreground">Post-quantum cryptography research intensifies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl mb-4">Practical Applications</h2>
+            
+            <div class="card">
+                <h3 class="text-2xl mb-4">Secure Communication</h3>
+                <p class="mb-4">Protecting your messages from prying eyes</p>
+                <p>
+                    Cryptography enables secure messaging apps, encrypted emails, and secure voice calls.
+                    It ensures that only the intended recipient can read your messages.
+                </p>
+                <div class="icon-container">
+                    <i data-lucide="lock"></i>
+                    <i data-lucide="arrow-right"></i>
+                    <i data-lucide="unlock"></i>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="text-2xl mb-4">Financial Security</h3>
+                <p class="mb-4">Safeguarding your financial transactions</p>
+                <p>
+                    Cryptography protects online banking, credit card transactions, and digital wallets.
+                    It prevents fraud and ensures the integrity of financial systems.
+                </p>
+                <div class="icon-container">
+                    <i data-lucide="shield"></i>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="text-2xl mb-4">Authentication</h3>
+                <p class="mb-4">Verifying identities in the digital world</p>
+                <p>
+                    Cryptographic techniques are used in password hashing, digital signatures, and multi-factor authentication.
+                    They help prove that you are who you claim to be online.
+                </p>
+                <div class="icon-container">
+                    <i data-lucide="key"></i>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="text-2xl mb-4">Blockchain</h3>
+                <p class="mb-4">Powering decentralized systems</p>
+                <p>
+                    Cryptography is at the heart of blockchain technology, enabling secure, transparent, and tamper-proof
+                    distributed ledgers used in cryptocurrencies and beyond.
+                </p>
+                <div class="icon-container">
+                    <i data-lucide="database"></i>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

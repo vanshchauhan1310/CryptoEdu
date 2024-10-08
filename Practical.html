@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Applications of Cryptography</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    padding: 1rem;
+    background-color: #f5f5f5;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #0070f3;
+    font-weight: bold;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.applications {
+    margin-bottom: 2rem;
+}
+
+.tab {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.tab-button {
+    padding: 1rem;
+    cursor: pointer;
+    background: #e5e5e5;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.tab-button.active {
+    background: #0070f3;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.accordion {
+    margin-top: 1rem;
+}
+
+.accordion-item {
+    border: 1px solid #e5e5e5;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.accordion-trigger {
+    padding: 1rem;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+
+.accordion-content {
+    padding: 1rem;
+    display: none;
+}
+
+.password-checker {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#password {
+    padding: 0.5rem;
+    width: 300px;
+    margin: 1rem 0;
+}
+
+.password-strength {
+    font-weight: bold;
+}
+
+.password-tips {
+    list-style-type: none;
+    margin-top: 1rem;
+}
+
+</style>
+<body>
+    <header>
+        <a href="index.html" class="back-link">
+         Back to Home
+        </a>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Practical Applications of Cryptography</h1>
+            <p>Explore how cryptography is implemented in real-world scenarios to enhance security and privacy.</p>
+        </section>
+        <section class="applications">
+            <div class="tab">
+                <button class="tab-button active" data-tab="secure-communication">Secure Communication</button>
+                <button class="tab-button" data-tab="financial-transactions">Financial Transactions</button>
+                <button class="tab-button" data-tab="data-protection">Data Protection</button>
+            </div>
+            <div id="secure-communication" class="tab-content active">
+                <h2>Secure Communication</h2>
+                <p>Ensuring private and secure communication over networks.</p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">HTTPS</div>
+                        <div class="accordion-content">
+                            <p>Secures web browsing by encrypting data between the user's browser and the website.</p>
+                            <p>HTTPS uses TLS (Transport Layer Security) to provide encryption, data integrity, and authentication.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">End-to-End Encryption in Messaging</div>
+                        <div class="accordion-content">
+                            <p>Ensures that only the sender and recipient can read the messages.</p>
+                            <p>Apps like Signal and WhatsApp use end-to-end encryption, preventing interception by third parties.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="financial-transactions" class="tab-content">
+                <h2>Financial Transactions</h2>
+                <p>Securing online payments and financial data.</p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">Online Banking</div>
+                        <div class="accordion-content">
+                            <p>Protects financial transactions and sensitive account information.</p>
+                            <p>Banks use encryption and secure protocols to protect online banking sessions.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">Cryptocurrencies</div>
+                        <div class="accordion-content">
+                            <p>Digital currencies that rely on cryptography for security.</p>
+                            <p>Bitcoin uses public-key cryptography to secure transactions.</p>
+                        </div>
+                    </div>
+                </div>
+            </divPractical>
+            <div id="data-protection" class="tab-content">
+                <h2>Data Protection</h2>
+                <p>Safeguarding sensitive information at rest and in transit.</p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">Full Disk Encryption</div>
+                        <div class="accordion-content">
+                            <p>Protects data stored on devices from unauthorized access.</p>
+                            <p>Tools like BitLocker and FileVault use AES encryption for security.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-trigger">Database Encryption</div>
+                        <div class="accordion-content">
+                            <p>Secures sensitive data stored in databases.</p>
+                            <p>Many database systems offer built-in encryption features.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 CryptoEdu. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const passwordInput = document.getElementById("password");
+    const passwordStrengthDisplay = document.getElementById("password-strength");
+
+    tabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            tabContents.forEach(content => content.classList.remove("active"));
+            
+            button.classList.add("active");
+            document.getElementById(button.dataset.tab).classList.add("active");
+        });
+    });
+
+    passwordInput.addEventListener("input", () => {
+        const password = passwordInput.value;
+        passwordStrengthDisplay.textContent = checkPasswordStrength(password);
+    });
+
+    function checkPasswordStrength(password) {
+        const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+        
+        if (strongRegex.test(password)) {
+            return "Strong";
+        } else if (mediumRegex.test(password)) {
+            return "Medium";
+        } else {
+            return "Weak";
+        }
+    }
+
+    const accordionTriggers = document.querySelectorAll(".accordion-trigger");
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener("click", () => {
+            const content = trigger.nextElementSibling;
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoEdu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            height: 56px;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            justify-content: space-around;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        /* Main content styles */
+        main {
+            flex: 1;
+        }
+
+        .hero, .explore, .featured, .cta {
+            padding: 3rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero, .explore, .featured, .cta {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container a {
+            text-decoration: none;
+            color: black;
+        }
+        .text-center {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .subtitle {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            color: #6b7280;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background-color: #1f2937;
+            color: white;
+            border: none;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 1px solid #1f2937;
+        }
+
+        /* Card grid styles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .card i {
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-link {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+            }
+
+            footer nav {
+                margin-left: auto;
+            }
+        }
+
+        footer p, footer a {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        /* Reset and base styles */
+   
+
+        /*Navbar*/
+
+        /* Navigation bar styles */
+
+/* Navmenu - Desktop */
+@media (min-width: 1200px) {
+  .navmenu {
+    padding: 0;
+  }
+
+  .navmenu ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  .navmenu li {
+    position: relative;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-color);
+    padding: 18px 15px;
+    font-size: 15px;
+    font-family: var(--nav-font);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    transition: 0.3s;
+  }
+
+  .navmenu li:last-child a {
+    padding-right: 0;
+  }
+
+  .navmenu li:hover>a,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-hover-color);
+  }
+
+  .navmenu .dropdown ul {
+    margin: 0;
+    padding: 10px 0;
+    background: var(--nav-dropdown-background-color);
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    left: 14px;
+    top: 130%;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 4px;
+    z-index: 99;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu .dropdown ul li {
+    min-width: 200px;
+  }
+
+  .navmenu .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    color: var(--nav-dropdown-color);
+  }
+
+  .navmenu .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  .navmenu .dropdown ul a:hover,
+  .navmenu .dropdown ul .active:hover,
+  .navmenu .dropdown ul li:hover>a {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .navmenu .dropdown .dropdown ul {
+    top: 0;
+    left: -90%;
+    visibility: hidden;
+  }
+
+  .navmenu .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: -100%;
+    visibility: visible;
+  }
+}
+
+/* Navmenu - Mobile */
+@media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    color: var(--nav-color);
+    font-size: 28px;
+    line-height: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .navmenu {
+    padding: 0;
+    z-index: 9997;
+  }
+
+  .navmenu ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    inset: 60px 20px 20px 20px;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 6px;
+    background-color: var(--nav-mobile-background-color);
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-dropdown-color);
+    padding: 10px 20px;
+    font-family: var(--nav-font);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  }
+
+  .navmenu a i:hover,
+  .navmenu a:focus i:hover {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+  }
+
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .active i,
+  .navmenu .active:focus i {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    transform: rotate(180deg);
+  }
+
+  .navmenu .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background-color: var(--nav-dropdown-background-color);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    box-shadow: none;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navmenu .dropdown ul ul {
+    background-color: rgba(33, 37, 41, 0.1);
+  }
+
+  .navmenu .dropdown>.dropdown-active {
+    display: block;
+    background-color: rgba(33, 37, 41, 0.03);
+  }
+
+  .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  .mobile-nav-active .mobile-nav-toggle {
+    color: #fff;
+    position: absolute;
+    font-size: 32px;
+    top: 15px;
+    right: 15px;
+    margin-right: 0;
+    z-index: 9999;
+  }
+
+  .mobile-nav-active .navmenu {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(33, 37, 41, 0.8);
+    transition: 0.3s;
+  }
+
+  .mobile-nav-active .navmenu>ul {
+    display: block;
+  }
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav li {
+  position: relative;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  display: block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: none;
+}
+
+.dropdown-menu li {
+  margin-bottom: 10px;
+}
+
+.dropdown-menu a {
+  color: #333;
+  padding: 10px;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #ccc;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <i data-lucide="lock"></i>
+            <span>CryptoEdu</span>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="About.html">About</a></li>
+              <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                 <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+                  <li><a href="steganography.html">Steganography</a></li>
+                  <li><a href="password.html">Password Strength Checker</a></li>
+                </ul>
+              </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          </nav>
+
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container text-center">
+                <h1>Demystifying Cryptography</h1>
+                <p class="subtitle">Explore the fascinating world of cryptography through engaging content and practical applications.</p>
+                <!-- <div class="button-group">
+                    <button class="button-primary">Get Started</button>
+                    <button class="button-outline">Learn More</button>
+                </div> -->
+            </div>
+        </section>
+        <section class="explore bg-gray">
+            <div class="container">
+                <h2 class="text-center">Explore Cryptography</h2>
+                <div class="grid grid-5">
+
+                    <a href="Foundation.html">
+                        <div class="card">
+                            <i data-lucide="shield"></i>
+                            <h3>Foundations</h3>
+                            <p>Understand the basic principles of cryptography.</p>
+                        </div>
+                    </a>
+
+                    <a href="Algorithm.html">
+                        <div class="card">
+                        <i data-lucide="lock"></i>
+                        <h3>Algorithms</h3>
+                        <p>Dive into popular encryption and hashing algorithms.</p>
+                    </div>
+                    </a>
+
+                    <!-- <div class="card">
+                        <i data-lucide="code"></i>
+                        <h3>Practical Applications</h3>
+                        <p>Learn how to implement cryptography in real-world scenarios.</p>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        <!-- <section class="featured">
+            <div class="container">
+                <h2 class="text-center">Featured Content</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Understanding RSA Encryption</h3>
+                        <p>A deep dive into one of the most widely used public-key cryptosystems.</p>
+                        <a href="#" class="card-link">
+                            Read More
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <h3>Blockchain and Cryptography</h3>
+                        <p>Explore how cryptography powers blockchain technology.</p>
+                        <a href="#" class="card-link">
+                            Read More
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <section class="cta bg-gray">
+            <div class="container text-center">
+                <h2>Ready to Unlock the Secrets of Cryptography?</h2>
+                <p class="subtitle">Start your journey into the world of secure communication and data protection.</p>
+                <button class="button-primary">Explore Topics</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 CryptoEdu. All rights reserved.</p>
+        <nav>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy</a>
+        </nav>
+    </footer>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+// Get the dropdown toggle element
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+// Get the dropdown menu element
+const dropdownMenu = dropdownToggle.nextElementSibling;
+
+dropdownToggle.addEventListener('click', () => {
+  if (dropdownMenu.style.display === 'block') {
+    dropdownMenu.style.display = 'none';
+  } else {
+    dropdownMenu.style.display = 'block';
+  }
+});
+    </script>
+</body>
+</html>
+    

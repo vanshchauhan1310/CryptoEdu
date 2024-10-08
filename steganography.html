@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography - CryptoEdu</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            height: 56px;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+      
+        /* Main content styles */
+        main {
+            flex: 1;
+        }
+
+        .hero, .explore, .featured, .cta {
+            padding: 3rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero, .explore, .featured, .cta {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+      
+        /* Card grid styles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .card i {
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-link {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+            }
+
+            footer nav {
+                margin-left: auto;
+            }
+        }
+
+        footer p, footer a {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        header {
+            height: 56px;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            justify-content: space-around;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        /* Main content styles */
+        main {
+            flex: 1;
+        }
+
+        .hero, .explore, .featured, .cta {
+            padding: 3rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero, .explore, .featured, .cta {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .subtitle {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            color: #6b7280;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background-color: #1f2937;
+            color: white;
+            border: none;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 1px solid #1f2937;
+        }
+
+        /* Card grid styles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .card i {
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-link {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+            }
+
+            footer nav {
+                margin-left: auto;
+            }
+        }
+
+        footer p, footer a {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Utility classes */
+        .bg-gray {
+            background-color: #f3f4f6;
+        }
+
+        .container a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+
+        /*Navbar*/
+
+        /* Navigation bar styles */
+
+/* Navmenu - Desktop */
+@media (min-width: 1200px) {
+  .navmenu {
+    padding: 0;
+  }
+
+  .navmenu ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  .navmenu li {
+    position: relative;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-color);
+    padding: 18px 15px;
+    font-size: 15px;
+    font-family: var(--nav-font);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    transition: 0.3s;
+  }
+
+  .navmenu li:last-child a {
+    padding-right: 0;
+  }
+
+  .navmenu li:hover>a,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-hover-color);
+  }
+
+  .navmenu .dropdown ul {
+    margin: 0;
+    padding: 10px 0;
+    background: var(--nav-dropdown-background-color);
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    left: 14px;
+    top: 130%;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 4px;
+    z-index: 99;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu .dropdown ul li {
+    min-width: 200px;
+  }
+
+  .navmenu .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    color: var(--nav-dropdown-color);
+  }
+
+  .navmenu .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  .navmenu .dropdown ul a:hover,
+  .navmenu .dropdown ul .active:hover,
+  .navmenu .dropdown ul li:hover>a {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .navmenu .dropdown .dropdown ul {
+    top: 0;
+    left: -90%;
+    visibility: hidden;
+  }
+
+  .navmenu .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: -100%;
+    visibility: visible;
+  }
+}
+
+/* Navmenu - Mobile */
+@media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    color: var(--nav-color);
+    font-size: 28px;
+    line-height: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .navmenu {
+    padding: 0;
+    z-index: 9997;
+  }
+
+  .navmenu ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    inset: 60px 20px 20px 20px;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 6px;
+    background-color: var(--nav-mobile-background-color);
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-dropdown-color);
+    padding: 10px 20px;
+    font-family: var(--nav-font);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  }
+
+  .navmenu a i:hover,
+  .navmenu a:focus i:hover {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+  }
+
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .active i,
+  .navmenu .active:focus i {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    transform: rotate(180deg);
+  }
+
+  .navmenu .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background-color: var(--nav-dropdown-background-color);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    box-shadow: none;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navmenu .dropdown ul ul {
+    background-color: rgba(33, 37, 41, 0.1);
+  }
+
+  .navmenu .dropdown>.dropdown-active {
+    display: block;
+    background-color: rgba(33, 37, 41, 0.03);
+  }
+
+  .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  .mobile-nav-active .mobile-nav-toggle {
+    color: #fff;
+    position: absolute;
+    font-size: 32px;
+    top: 15px;
+    right: 15px;
+    margin-right: 0;
+    z-index: 9999;
+  }
+
+  .mobile-nav-active .navmenu {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(33, 37, 41, 0.8);
+    transition: 0.3s;
+  }
+
+  .mobile-nav-active .navmenu>ul {
+    display: block;
+  }
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav li {
+  position: relative;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  display: block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: none;
+}
+
+.dropdown-menu li {
+  margin-bottom: 10px;
+}
+
+.dropdown-menu a {
+  color: #333;
+  padding: 10px;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #ccc;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <i data-lucide="lock"></i>
+            <span>CryptoEdu</span>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="About.html">About</a></li>
+              <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                 <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+                  <li><a href="steganography.html">Steganography</a></li>
+                  <li><a href="password.html">Password Strength Checker</a></li>
+                </ul>
+              </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          </nav>
+
+    </header>
+
+    <div class="container my-4">
+        <h1 class="display-3"> <b> Steganography </b> </h1>
+        <p>Steganography is the practice of hiding information within a non-secret message or object so that it's not obvious to human inspection. It is used by governments, hackers, and organizations to conceal data in physical objects and digital media files.</p>
+        
+        <div class="row stego-section">
+            <div class="col-md-6">
+                <h2>Image Selection</h2>
+                <p>Select an image: <input type="file" id="file" /><br></p>
+                <h2>Picture Preview</h2>
+                <p><canvas id="canvas" style="width: 300px;"></canvas><br></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Hide Information</h2>
+                <p>Steganographic information: <textarea id="message"></textarea><br></p>
+                <p><button id="encode" class="btn btn-primary">Encode Information</button><br></p>
+                <h2>Steganographic Image</h2>
+                <p><img id="output" style="width: 300px;"><br></p>
+                <button id="decode" class="btn btn-secondary">Decode Information</button><br>
+                <p>Decoded Message: <div id="message_decoded"></div><br></p>
+                <button id="download" class="btn btn-success">Download Steganography Image</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        window.onload = function() {
+
+            var input = document.getElementById('file');
+
+            input.addEventListener('change', importImage);
+
+            var encodeButton = document.getElementById('encode');
+
+            encodeButton.addEventListener('click', encode);
+
+            var decodeButton = document.getElementById('decode');
+
+            decodeButton.addEventListener('click', decode);
+
+
+
+            var downloadButton = document.getElementById('download');
+
+            downloadButton.style.display = 'none'; // Hide download button initially
+
+            downloadButton.onclick = function() {
+
+                var canvas = document.getElementById('canvas');
+
+                var link = document.createElement('a');
+
+                link.download = 'stego_image.png';
+
+                link.href = canvas.toDataURL('image/png');
+
+                link.click();
+
+            };
+
+        };
+
+        
+
+        var importImage = function(e) {
+
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+
+                var img = new Image();
+
+                img.onload = function() {
+
+                    var ctx = document.getElementById('canvas').getContext('2d');
+
+                    ctx.canvas.width = img.width;
+
+                    ctx.canvas.height = img.height;
+
+                    ctx.drawImage(img, 0, 0);
+
+                };
+
+                img.src = event.target.result;
+
+            };
+
+            reader.readAsDataURL(e.target.files[0]);
+
+        };
+
+        
+
+        var encode = function() {
+
+            var message = document.getElementById('message').value;
+
+            var output = document.getElementById('output');
+
+            var canvas = document.getElementById('canvas');
+
+            var ctx = canvas.getContext('2d');
+
+            var pixelCount = ctx.canvas.width * ctx.canvas.height;
+
+            if ((message.length + 1) * 16 > pixelCount * 4 * 0.75) {
+
+                alert('Content is too large, exceeds the maximum writable amount');
+
+                return;
+
+            }
+
+
+
+            var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            encodeMessage(imageData.data, message);
+
+            ctx.putImageData(imageData, 0, 0);
+
+            alert('Steganography successful, information has been hidden in the image');
+
+            output.src = canvas.toDataURL();
+
+            document.getElementById('download').style.display = 'inline-block';
+
+        };
+
+
+
+        var decode = function() {
+
+            var ctx = document.getElementById('canvas').getContext('2d');
+
+            var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            
+
+            var message = decodeMessage(imageData.data);
+
+            alert(message);
+
+            document.getElementById('message_decoded').innerHTML = message;
+
+        };
+
+
+
+        var getNextLocation = function(history, total) {
+
+            var pos = history.length;
+
+            var loc = Math.abs(pos + 1) % total;
+
+            while (true) {
+
+                if (loc >= total) {
+
+                    loc = 0;
+
+                } else if (history.indexOf(loc) >= 0) {
+
+                    loc++;
+
+                } else if ((loc + 1) % 4 === 0) {
+
+                    loc++;
+
+                } else {
+
+                    history.push(loc);
+
+                    return loc;
+
+                }
+
+            }
+
+        };
+
+
+
+        var setBit = function(number, location, bit) {
+
+            return (number & ~(1 << location)) | (bit << location);
+
+        };
+
+
+
+        var getBitsFromNumber = function(number) {
+
+            var bits = [];
+
+            for (var i = 0; i < 16; i++) {
+
+                bits.push(getBit(number, i));
+
+            }
+
+            return bits;
+
+        };
+
+
+
+        var getBit = function(number, location) {
+
+            return ((number >> location) & 1);
+
+        };
+
+
+
+        var getMessageBits = function(message) {
+
+            var messageBits = [];
+
+            for (var i = 0; i < message.length; i++) {
+
+                var code = message.charCodeAt(i);
+
+                messageBits = messageBits.concat(getBitsFromNumber(code));
+
+            }
+
+            return messageBits;
+
+        };
+
+
+
+        var encodeMessage = function(colors, message) {
+
+            var messageBits = getBitsFromNumber(message.length);
+
+            messageBits = messageBits.concat(getMessageBits(message));
+
+            var history = [];
+
+            var pos = 0;
+
+            while (pos < messageBits.length) {
+
+                var loc = getNextLocation(history, colors.length);
+
+                colors[loc] = setBit(colors[loc], 0, messageBits[pos]);
+
+                while ((loc + 1) % 4 !== 0) {
+
+                    loc++;
+
+                }
+
+                colors[loc] = 255;
+
+                pos++;
+
+            }
+
+        };
+
+     
+
+        var decodeMessage = function(colors) {
+
+            var history = [];
+
+            var messageSize = getNumberFromBits(colors, history);
+
+            if ((messageSize + 1) * 16 > colors.length * 0.75) {
+
+                return '';
+
+            }
+
+            var message = [];
+
+            for(var i = 0; i < messageSize; i++) {
+
+                var code = getNumberFromBits(colors, history);
+
+                message.push(String.fromCharCode(code));
+
+            }
+
+            return message.join('');
+
+        };
+
+
+
+        var getNumberFromBits = function(bytes, history) {
+
+            var number = 0;
+
+            var pos = 0;
+
+            while (pos < 16) {
+
+                var loc = getNextLocation(history, bytes.length);
+
+                var bit = getBit(bytes[loc], 0);
+
+                number = setBit(number, pos, bit);
+
+                pos++;
+
+            }
+
+            return number;
+
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptographic Algorithms - CryptoEdu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 56px;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+
+        main {
+            flex: 1;
+            padding: 3rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .algorithm {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .algorithm-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .algorithm-description {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">Back to Home</a>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Cryptographic Algorithms</h1>
+
+            <div class="algorithm">
+                <div class="algorithm-title">AES (Advanced Encryption Standard)</div>
+                <p class="algorithm-description">A symmetric block cipher used for secure data transmission.</p>
+                <p>AES operates on 128-bit blocks and supports key sizes of 128, 192, and 256 bits. It's widely used for government and commercial applications.</p>
+            </div>
+
+            <div class="algorithm">
+                <div class="algorithm-title">RSA (Rivest-Shamir-Adleman)</div>
+                <p class="algorithm-description">An asymmetric cryptographic algorithm used for secure data transmission and digital signatures.</p>
+                <p>RSA uses two keys: a public key for encryption and a private key for decryption. Its security is based on the difficulty of factoring large prime numbers.</p>
+            </div>
+
+            <div class="algorithm">
+                <div class="algorithm-title">Blowfish</div>
+                <p class="algorithm-description">A symmetric block cipher designed as a fast, free alternative to existing encryption algorithms.</p>
+                <p>Blowfish uses a variable-length key, from 32 bits to 448 bits, making it ideal for both domestic and exportable use.</p>
+            </div>
+
+            <div class="algorithm">
+                <div class="algorithm-title">SHA-256 (Secure Hash Algorithm 256-bit)</div>
+                <p class="algorithm-description">Part of the SHA-2 family, widely used for data integrity verification.</p>
+                <p>SHA-256 produces a 256-bit (32-byte) hash value, typically rendered as a 64-digit hexadecimal number. It's commonly used in cryptocurrencies like Bitcoin.</p>
+            </div>
+
+            <div class="algorithm">
+                <div class="algorithm-title">MD5 (Message Digest algorithm 5)</div>
+                <p class="algorithm-description">A widely used hash function that produces a 128-bit hash value.</p>
+                <p>While MD5 is still used for non-cryptographic purposes, it's considered cryptographically broken and unsuitable for security applications.</p>
+            </div>
+
+            <div class="algorithm">
+                <div class="algorithm-title">bcrypt</div>
+                <p class="algorithm-description">A password hashing function designed to be slow and resist rainbow table attacks.</p>
+                <p>bcrypt incorporates a salt and is adaptive, allowing the iteration count to be increased to make it slower as computers get faster.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 CryptoEdu. All rights reserved.</p>
+    </footer>
+</body>
+</html>
