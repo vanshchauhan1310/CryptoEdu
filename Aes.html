@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoEdu</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <title>AES - CryptoEdu</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
     <style>
         /* Reset and base styles */
         * {
@@ -29,21 +34,9 @@
             display: flex;
             align-items: center;
             border-bottom: 1px solid #e5e7eb;
-            justify-content: space-around;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-            font-weight: bold;
-        }
-
-        .logo i {
-            margin-right: 0.5rem;
-        }
-
+      
         /* Main content styles */
         main {
             flex: 1;
@@ -64,10 +57,147 @@
             margin: 0 auto;
         }
 
-        .container a {
-            text-decoration: none;
-            color: black;
+        .text-center {
+            text-align: center;
         }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+      
+        /* Card grid styles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .card i {
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-link {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+            }
+
+            footer nav {
+                margin-left: auto;
+            }
+        }
+
+        footer p, footer a {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        header {
+            height: 56px;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            justify-content: space-around;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        /* Main content styles */
+        main {
+            flex: 1;
+        }
+
+        .hero, .explore, .featured, .cta {
+            padding: 3rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero, .explore, .featured, .cta {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .text-center {
             text-align: center;
         }
@@ -182,8 +312,20 @@
             font-size: 0.75rem;
             color: #6b7280;
         }
-        /* Reset and base styles */
-   
+
+        /* Utility classes */
+        .bg-gray {
+            background-color: #f3f4f6;
+        }
+
+        .container a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+
+
 
         /*Navbar*/
 
@@ -471,11 +613,56 @@ nav a {
 }
 
 
+.container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .aes-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-group {
+            margin-bottom: 1rem;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            word-break: break-all;
+        }
+
+
 
 
     </style>
 </head>
 <body>
+
     <header>
         <a href="#" class="logo">
             <i data-lucide="lock"></i>
@@ -488,113 +675,96 @@ nav a {
               <li><a href="About.html">About</a></li>
               <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
-                  <li><a href="caesarcipher.html">Caesar Cipher</a></li>
-                   <li><a href="steganography.html">Steganography</a></li>
-                   <li><a href="password.html">Password Strength Checker</a></li>
-                   <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
-                 </ul>
+                 <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+                  <li><a href="steganography.html">Steganography</a></li>
+                  <li><a href="password.html">Password Strength Checker</a></li>
+                  <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
+                </ul>
               </li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
 
     </header>
-    <main>
-        <section class="hero">
-            <div class="container text-center">
-                <h1>Demystifying Cryptography</h1>
-                <p class="subtitle">Explore the fascinating world of cryptography through engaging content and practical applications.</p>
-                <!-- <div class="button-group">
-                    <button class="button-primary">Get Started</button>
-                    <button class="button-outline">Learn More</button>
-                </div> -->
-            </div>
-        </section>
-        <section class="explore bg-gray">
-            <div class="container">
-                <h2 class="text-center">Explore Cryptography</h2>
-                <div class="grid grid-5">
 
-                    <a href="Foundation.html">
-                        <div class="card">
-                            <i data-lucide="shield"></i>
-                            <h3>Foundations</h3>
-                            <p>Understand the basic principles of cryptography.</p>
-                        </div>
-                    </a>
-
-                    <a href="Algorithm.html">
-                        <div class="card">
-                        <i data-lucide="lock"></i>
-                        <h3>Algorithms</h3>
-                        <p>Dive into popular encryption and hashing algorithms.</p>
-                    </div>
-                    </a>
-
-                    <!-- <div class="card">
-                        <i data-lucide="code"></i>
-                        <h3>Practical Applications</h3>
-                        <p>Learn how to implement cryptography in real-world scenarios.</p>
-                    </div> -->
+    <div class="container">
+        <h1 class="display-4"><b>AES Encryption</b></h1>
+        <p class="lead">AES (Advanced Encryption Standard) is a symmetric block cipher algorithm and one of the most secure encryption methods widely used today.</p>
+        
+        <div class="row aes-section">
+            <div class="col-md-6">
+                <h2>Input</h2>
+                <textarea id="input-text" placeholder="Enter text to encrypt/decrypt"></textarea>
+                <input type="password" id="secret-key" class="key-input" placeholder="Enter secret key (16, 24, or 32 characters)">
+                <div class="btn-group">
+                    <button onclick="encrypt()" class="btn btn-primary mr-2">Encrypt</button>
+                    <button onclick="decrypt()" class="btn btn-secondary">Decrypt</button>
                 </div>
             </div>
-        </section>
-        <!-- <section class="featured">
-            <div class="container">
-                <h2 class="text-center">Featured Content</h2>
-                <div class="grid">
-                    <div class="card">
-                        <h3>Understanding RSA Encryption</h3>
-                        <p>A deep dive into one of the most widely used public-key cryptosystems.</p>
-                        <a href="#" class="card-link">
-                            Read More
-                            <i data-lucide="arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <h3>Blockchain and Cryptography</h3>
-                        <p>Explore how cryptography powers blockchain technology.</p>
-                        <a href="#" class="card-link">
-                            Read More
-                            <i data-lucide="arrow-right"></i>
-                        </a>
-                    </div>
+            <div class="col-md-6">
+                <h2>Output</h2>
+                <div id="output" class="result">
+                    Results will appear here...
                 </div>
+                <button onclick="copyToClipboard()" class="btn btn-success mt-3">Copy to Clipboard</button>
             </div>
-        </section> -->
-        <section class="cta bg-gray">
-            <div class="container text-center">
-                <h2>Ready to Unlock the Secrets of Cryptography?</h2>
-                <p class="subtitle">Start your journey into the world of secure communication and data protection.</p>
-                <button class="button-primary">Explore Topics</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>© 2024 CryptoEdu. All rights reserved.</p>
-        <nav>
-            <a href="#">Terms of Service</a>
-            <a href="#">Privacy</a>
-        </nav>
-    </footer>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
 
-// Get the dropdown toggle element
-const dropdownToggle = document.querySelector('.dropdown-toggle');
+function encrypt() {
+            try {
+                const text = document.getElementById('input-text').value;
+                const key = document.getElementById('secret-key').value;
+                
+                if (!text || !key) {
+                    alert('Please enter both text and secret key');
+                    return;
+                }
 
-// Get the dropdown menu element
-const dropdownMenu = dropdownToggle.nextElementSibling;
 
-dropdownToggle.addEventListener('click', () => {
-  if (dropdownMenu.style.display === 'block') {
-    dropdownMenu.style.display = 'none';
-  } else {
-    dropdownMenu.style.display = 'block';
-  }
-});
+                const encrypted = CryptoJS.AES.encrypt(text, key).toString();
+                document.getElementById('output').innerText = encrypted;
+            } catch (error) {
+                alert('Encryption failed: ' + error.message);
+            }
+        }
+
+        function decrypt() {
+            try {
+                const encryptedText = document.getElementById('input-text').value;
+                const key = document.getElementById('secret-key').value;
+                
+                if (!encryptedText || !key) {
+                    alert('Please enter both encrypted text and secret key');
+                    return;
+                }
+
+                const decrypted = CryptoJS.AES.decrypt(encryptedText, key);
+                const originalText = decrypted.toString(CryptoJS.enc.Utf8);
+                
+                if (!originalText) {
+                    throw new Error('Invalid key or ciphertext');
+                }
+                
+                document.getElementById('output').innerText = originalText;
+            } catch (error) {
+                alert('Decryption failed: ' + error.message);
+            }
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(output)
+                .then(() => alert('Copied to clipboard!'))
+                .catch(err => alert('Failed to copy: ' + err));
+        }
     </script>
 </body>
 </html>
-    
