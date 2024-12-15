@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROT13 Cipher - CryptoEdu</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Cryptography Quiz</title>
     <style>
+        :root {
+            --primary-color: #1f2937;
+            --secondary-color: #6b7280;
+            --background-color: #f3f4f6;
+            --correct-color: #10b981;
+            --incorrect-color: #ef4444;
+        }
         * {
             box-sizing: border-box;
             margin: 0;
@@ -630,32 +636,107 @@ nav a {
             border: 1px solid #ced4da;
             word-break: break-all;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .cipher-section {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
-        textarea {
+        .quiz-container {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 100%;
-            min-height: 100px;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
+            max-width: 600px;
+            padding: 2rem;
+            transform: translate(100%,10px);
         }
-        .result {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #fff;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-            word-break: break-all;
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .question {
+            margin-bottom: 1.5rem;
+        }
+
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .option {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background-color: #f3f4f6;
+        }
+
+        .option.correct {
+            background-color: var(--correct-color);
+            color: white;
+        }
+
+        .option.incorrect {
+            background-color: var(--incorrect-color);
+            color: white;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #submit-btn:hover {
+            background-color: #111827;
+        }
+
+        #submit-btn:disabled {
+            background-color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: bold;
+        }
+
+        .restart-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--correct-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background-color: #059669;
         }
     </style>
 </head>
@@ -684,69 +765,221 @@ nav a {
 
                  </ul>
               </li>
-              <li><a href="CryptoQuiz.html">Quiz</a></li>
+              <li><a href="#">Quiz</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
 
-
     </header>
-
-    <div class="container">
-        <h1 class="display-4"><b>ROT13 Cipher</b></h1>
-        <p class="lead">ROT13 is a simple letter substitution cipher that replaces a letter with the 13th letter after it in the alphabet. It's its <br>  own inverse; that is, to undo ROT13, the same algorithm is applied.</p>
-        
-        <div class="row cipher-section">
-            <div class="col-md-6">
-                <h2>Input</h2>
-                <textarea id="input-text" placeholder="Enter text to encode/decode"></textarea>
-                <div class="btn-group">
-                    <button onclick="transform()" class="btn btn-primary">Encode/Decode</button>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h2>Output</h2>
-                <div id="output" class="result">
-                    Results will appear here...
-                </div>
-                <button onclick="copyToClipboard()" class="btn btn-success mt-3">Copy to Clipboard</button>
-            </div>
-        </div>
+    <div class="quiz-container">
+        <h1>Cryptography Quiz</h1>
+        <div id="quiz"></div>
+        <button id="submit-btn">Submit</button>
+        <div id="result"></div>
     </div>
 
     <script>
-        function rot13(str) {
-            return str.replace(/[A-Za-z]/g, function(char) {
-                // Determine the case and base (uppercase or lowercase)
-                const base = char <= 'Z' ? 65 : 97;
-                
-                // Convert to 0-25 range, add 13, wrap around, convert back
-                return String.fromCharCode((char.charCodeAt(0) - base + 13) % 26 + base);
+        const quizData = [
+            {
+                question: "What is the primary goal of cryptography?",
+                options: [
+                    "To make data unreadable to unauthorized parties",
+                    "To increase internet speed",
+                    "To compress data",
+                    "To create computer viruses"
+                ],
+                correctIndex: 0
+            },
+            {
+                question: "What does the term 'cipher' refer to in cryptography?",
+                options: [
+                    "A type of computer",
+                    "An algorithm for encrypting and decrypting data",
+                    "A networking protocol",
+                    "A type of computer virus"
+                ],
+                correctIndex: 1
+            },
+            {
+                question: "Which encryption method uses the same key for both encryption and decryption?",
+                options: [
+                    "Asymmetric encryption",
+                    "Quantum encryption",
+                    "Symmetric encryption",
+                    "Steganography"
+                ],
+                correctIndex: 2
+            },
+            {
+                question: "What is the Caesar Cipher named after?",
+                options: [
+                    "A famous mathematician",
+                    "A Roman emperor",
+                    "A computer scientist",
+                    "A Greek philosopher"
+                ],
+                correctIndex: 1
+            },
+            {
+                question: "Which of these is NOT a common cryptographic hash function?",
+                options: [
+                    "SHA-256",
+                    "MD5",
+                    "Blowfish",
+                    "AES"
+                ],
+                correctIndex: 3
+            },
+            {
+                question: "What is the purpose of public key cryptography?",
+                options: [
+                    "To create secret messages",
+                    "To enable secure communication without sharing a secret key",
+                    "To compress data",
+                    "To increase internet speed"
+                ],
+                correctIndex: 1
+            },
+            {
+                question: "What does SSL stand for in web security?",
+                options: [
+                    "Secure Socket Layer",
+                    "System Security Linking",
+                    "Secure System Layer",
+                    "Server Socket Linking"
+                ],
+                correctIndex: 0
+            },
+            {
+                question: "Which cryptographic concept ensures that a message hasn't been altered?",
+                options: [
+                    "Encryption",
+                    "Decryption",
+                    "Digital Signature",
+                    "Key Exchange"
+                ],
+                correctIndex: 2
+            },
+            {
+                question: "What is the primary weakness of the Caesar Cipher?",
+                options: [
+                    "It's too complex",
+                    "It requires special hardware",
+                    "It's very easy to break",
+                    "It cannot encrypt numbers"
+                ],
+                correctIndex: 2
+            },
+            {
+                question: "What does 'end-to-end encryption' typically mean?",
+                options: [
+                    "Encryption that works only on mobile devices",
+                    "Encryption that protects data from sender to recipient",
+                    "Encryption that requires multiple servers",
+                    "A type of quantum encryption"
+                ],
+                correctIndex: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submit-btn');
+        const resultContainer = document.getElementById('result');
+
+        let currentQuiz = 0;
+        let score = 0;
+
+        function loadQuiz() {
+            quizContainer.innerHTML = '';
+            submitButton.disabled = true;
+
+            quizData.forEach((quizItem, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+
+                const questionText = document.createElement('div');
+                questionText.classList.add('question-text');
+                questionText.textContent = `${index + 1}. ${quizItem.question}`;
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+
+                quizItem.options.forEach((option, optionIndex) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    optionElement.textContent = option;
+                    optionElement.dataset.index = optionIndex;
+
+                    optionElement.addEventListener('click', () => {
+                        optionsDiv.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+
+                        optionElement.classList.add('selected');
+                        submitButton.disabled = false;
+                    });
+
+                    optionsDiv.appendChild(optionElement);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(questionDiv);
             });
         }
 
-        function transform() {
-            try {
-                const text = document.getElementById('input-text').value;
-                
-                if (!text) {
-                    alert('Please enter text');
+        function submitQuiz() {
+            let allAnswered = true;
+
+            quizData.forEach((quizItem, index) => {
+                const options = quizContainer.querySelectorAll('.options')[index].children;
+                const selectedOption = Array.from(options).find(opt => opt.classList.contains('selected'));
+
+                if (!selectedOption) {
+                    allAnswered = false;
                     return;
                 }
 
-                const transformed = rot13(text);
-                document.getElementById('output').innerText = transformed;
-            } catch (error) {
-                alert('Transformation failed: ' + error.message);
+                const selectedIndex = parseInt(selectedOption.dataset.index);
+                const correctIndex = quizItem.correctIndex;
+
+                Array.from(options).forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+
+                if (selectedIndex === correctIndex) {
+                    selectedOption.classList.add('correct');
+                    score++;
+                } else {
+                    selectedOption.classList.add('incorrect');
+                    options[correctIndex].classList.add('correct');
+                }
+            });
+
+            if (!allAnswered) {
+                alert('Please answer all questions before submitting.');
+                return;
             }
+
+            submitButton.style.display = 'none';
+            resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+
+            const restartBtn = document.createElement('button');
+            restartBtn.textContent = 'Restart Quiz';
+            restartBtn.classList.add('restart-btn');
+            restartBtn.addEventListener('click', () => {
+                currentQuiz = 0;
+                score = 0;
+                submitButton.style.display = 'block';
+                resultContainer.innerHTML = '';
+                loadQuiz();
+            });
+            resultContainer.appendChild(restartBtn);
         }
 
-        function copyToClipboard() {
-            const output = document.getElementById('output').innerText;
-            navigator.clipboard.writeText(output)
-                .then(() => alert('Copied to clipboard!'))
-                .catch(err => alert('Failed to copy: ' + err));
-        }
+        loadQuiz();
+
+        submitButton.addEventListener('click', submitQuiz);
     </script>
 </body>
 </html>
