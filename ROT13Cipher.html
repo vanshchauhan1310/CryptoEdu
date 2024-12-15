@@ -3,15 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AES - CryptoEdu</title>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-    <!-- Bootstrap CSS -->
+    <title>ROT13 Cipher - CryptoEdu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
     <style>
-        /* Reset and base styles */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -325,8 +319,6 @@
 
 
 
-
-
         /*Navbar*/
 
         /* Navigation bar styles */
@@ -612,41 +604,24 @@ nav a {
   background-color: #ccc;
 }
 
-
-.container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-
-        .aes-section {
+        .cipher-section {
             background: #f8f9fa;
             padding: 2rem;
             border-radius: 8px;
             margin-top: 2rem;
         }
-
-        textarea {
+        textarea, input {
             width: 100%;
-            min-height: 100px;
             margin-bottom: 1rem;
             padding: 0.5rem;
             border-radius: 4px;
             border: 1px solid #ced4da;
         }
-
-        .key-input {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-        }
-
-        .btn-group {
-            margin-bottom: 1rem;
-        }
-
         .result {
             margin-top: 1rem;
             padding: 1rem;
@@ -655,10 +630,33 @@ nav a {
             border: 1px solid #ced4da;
             word-break: break-all;
         }
-
-
-
-
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .cipher-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -689,20 +687,19 @@ nav a {
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
+
     </header>
 
     <div class="container">
-        <h1 class="display-4"><b>AES Encryption</b></h1>
-        <p class="lead" style="max-width: 80%;">AES (Advanced Encryption Standard) is a symmetric block cipher algorithm and one of the most secure encryption methods widely used today.</p>
+        <h1 class="display-4"><b>ROT13 Cipher</b></h1>
+        <p class="lead">ROT13 is a simple letter substitution cipher that replaces a letter with the 13th letter after it in the alphabet. It's its <br>  own inverse; that is, to undo ROT13, the same algorithm is applied.</p>
         
-        <div class="row aes-section">
+        <div class="row cipher-section">
             <div class="col-md-6">
                 <h2>Input</h2>
-                <textarea id="input-text" placeholder="Enter text to encrypt/decrypt"></textarea>
-                <input type="password" id="secret-key" class="key-input" placeholder="Enter secret key (16, 24, or 32 characters)">
+                <textarea id="input-text" placeholder="Enter text to encode/decode"></textarea>
                 <div class="btn-group">
-                    <button onclick="encrypt()" class="btn btn-primary mr-2">Encrypt</button>
-                    <button onclick="decrypt()" class="btn btn-secondary">Decrypt</button>
+                    <button onclick="transform()" class="btn btn-primary">Encode/Decode</button>
                 </div>
             </div>
             <div class="col-md-6">
@@ -715,51 +712,30 @@ nav a {
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script>
-
-function encrypt() {
-            try {
-                const text = document.getElementById('input-text').value;
-                const key = document.getElementById('secret-key').value;
+        function rot13(str) {
+            return str.replace(/[A-Za-z]/g, function(char) {
+                // Determine the case and base (uppercase or lowercase)
+                const base = char <= 'Z' ? 65 : 97;
                 
-                if (!text || !key) {
-                    alert('Please enter both text and secret key');
-                    return;
-                }
-
-
-                const encrypted = CryptoJS.AES.encrypt(text, key).toString();
-                document.getElementById('output').innerText = encrypted;
-            } catch (error) {
-                alert('Encryption failed: ' + error.message);
-            }
+                // Convert to 0-25 range, add 13, wrap around, convert back
+                return String.fromCharCode((char.charCodeAt(0) - base + 13) % 26 + base);
+            });
         }
 
-        function decrypt() {
+        function transform() {
             try {
-                const encryptedText = document.getElementById('input-text').value;
-                const key = document.getElementById('secret-key').value;
+                const text = document.getElementById('input-text').value;
                 
-                if (!encryptedText || !key) {
-                    alert('Please enter both encrypted text and secret key');
+                if (!text) {
+                    alert('Please enter text');
                     return;
                 }
 
-                const decrypted = CryptoJS.AES.decrypt(encryptedText, key);
-                const originalText = decrypted.toString(CryptoJS.enc.Utf8);
-                
-                if (!originalText) {
-                    throw new Error('Invalid key or ciphertext');
-                }
-                
-                document.getElementById('output').innerText = originalText;
+                const transformed = rot13(text);
+                document.getElementById('output').innerText = transformed;
             } catch (error) {
-                alert('Decryption failed: ' + error.message);
+                alert('Transformation failed: ' + error.message);
             }
         }
 

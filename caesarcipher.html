@@ -14,6 +14,9 @@
             margin: 0;
             padding: 0;
         }
+        p{
+          max-width: 85%;
+        }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -388,10 +391,9 @@
     opacity: 0;
     transition: 0.3s;
     border-radius: 4px;
-    z-index: 99;
+    z-index: 1000; /* Set a high z-index value */
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-  }
-
+}
   .navmenu .dropdown ul li {
     min-width: 200px;
   }
@@ -621,20 +623,25 @@ nav a {
         </a>
 
         <nav id="navmenu" class="navmenu">
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="About.html">About</a></li>
-              <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="caesarcipher.html">Caesar Cipher</a></li>
-                   <li><a href="steganography.html">Steganography</a></li>
-                   <li><a href="password.html">Password Strength Checker</a></li>
-                   <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
-                 </ul>
-              </li>
-            </ul>
-            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-          </nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+                <li><a href="Vigenere.html">Vigenere Cipher </a></li>
+                 <li><a href="ROT13Cipher.html">ROT13Cipher</a></li>
+                 <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
+                 <li><a href="XOR-Encryption.html">XOR-Encryption</a></li>
+                 <li><a href="steganography.html">Steganography</a></li>
+                 <li><a href="password.html">Password Strength Checker</a></li>
+
+
+               </ul>
+            </li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
 
     </header>
 
