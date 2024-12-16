@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptography Quiz</title>
+    <title>Discussion - Forum </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
     <style>
-        :root {
+                :root {
             --primary-color: #1f2937;
             --secondary-color: #6b7280;
             --background-color: #f3f4f6;
@@ -739,249 +742,206 @@ nav a {
             background-color: #059669;
         }
     </style>
+
+<script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 </head>
 <body>
-
     <header>
-        <a href="#" class="logo">
-            <i data-lucide="lock"></i>
-            <span>CryptoEdu</span>
-        </a>
+    <a href="#" class="logo">
+        <i data-lucide="lock"></i>
+        <span>CryptoEdu</span>
+    </a>
 
-        <nav id="navmenu" class="navmenu">
+    <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="About.html">About</a></li>
-              <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="caesarcipher.html">Caesar Cipher</a></li>
-                  <li><a href="Vigenere.html">Vigenere Cipher </a></li>
-                   <li><a href="ROT13Cipher.html">ROT13Cipher</a></li>
-                   <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
-                   <li><a href="XOR-Encryption.html">XOR-Encryption</a></li>
-                   <li><a href="steganography.html">Steganography</a></li>
-                   <li><a href="password.html">Password Strength Checker</a></li>
+              <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+              <li><a href="Vigenere.html">Vigenere Cipher </a></li>
+               <li><a href="ROT13Cipher.html">ROT13Cipher</a></li>
+               <li><a href="Aes.html">Advanced Encryption Standard(Aes)</a></li>
+               <li><a href="XOR-Encryption.html">XOR-Encryption</a></li>
+               <li><a href="steganography.html">Steganography</a></li>
+               <li><a href="password.html">Password Strength Checker</a></li>
 
 
-                 </ul>
-              </li>
-              <li><a href="#">Quiz</a></li>
-              <li><a href="DiscussionForum.html">Forum</a></li>
+             </ul>
+          </li>
+          <li><a href="#">Quiz</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
 
-            </ul>
-            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-          </nav>
+</header>
 
-    </header>
-    <div class="quiz-container">
-        <h1>Cryptography Quiz</h1>
-        <div id="quiz"></div>
-        <button id="submit-btn">Submit</button>
-        <div id="result"></div>
+
+    <div class="container my-4">
+        <h2>Cryptography Discussions Forum</h2>
+
+        <div class="form-group">
+            <label for="discussionTitle">Discussion Title</label>
+            <input type="text" class="form-control" id="discussionTitle" placeholder="Enter discussion title">
+        </div>
+        <div class="form-group">
+            <label for="discussionContent">Discussion Content</label>
+            <textarea class="form-control" id="discussionContent" rows="3" placeholder="Enter discussion content"></textarea>
+        </div>
+        <button class="btn btn-primary" id="postButton">Post Discussion</button>
+
+        <div id="discussionsContainer" class="my-4"></div>
     </div>
 
+
     <script>
-        const quizData = [
-            {
-                question: "What is the primary goal of cryptography?",
-                options: [
-                    "To make data unreadable to unauthorized parties",
-                    "To increase internet speed",
-                    "To compress data",
-                    "To create computer viruses"
-                ],
-                correctIndex: 0
-            },
-            {
-                question: "What does the term 'cipher' refer to in cryptography?",
-                options: [
-                    "A type of computer",
-                    "An algorithm for encrypting and decrypting data",
-                    "A networking protocol",
-                    "A type of computer virus"
-                ],
-                correctIndex: 1
-            },
-            {
-                question: "Which encryption method uses the same key for both encryption and decryption?",
-                options: [
-                    "Asymmetric encryption",
-                    "Quantum encryption",
-                    "Symmetric encryption",
-                    "Steganography"
-                ],
-                correctIndex: 2
-            },
-            {
-                question: "What is the Caesar Cipher named after?",
-                options: [
-                    "A famous mathematician",
-                    "A Roman emperor",
-                    "A computer scientist",
-                    "A Greek philosopher"
-                ],
-                correctIndex: 1
-            },
-            {
-                question: "Which of these is NOT a common cryptographic hash function?",
-                options: [
-                    "SHA-256",
-                    "MD5",
-                    "Blowfish",
-                    "AES"
-                ],
-                correctIndex: 3
-            },
-            {
-                question: "What is the purpose of public key cryptography?",
-                options: [
-                    "To create secret messages",
-                    "To enable secure communication without sharing a secret key",
-                    "To compress data",
-                    "To increase internet speed"
-                ],
-                correctIndex: 1
-            },
-            {
-                question: "What does SSL stand for in web security?",
-                options: [
-                    "Secure Socket Layer",
-                    "System Security Linking",
-                    "Secure System Layer",
-                    "Server Socket Linking"
-                ],
-                correctIndex: 0
-            },
-            {
-                question: "Which cryptographic concept ensures that a message hasn't been altered?",
-                options: [
-                    "Encryption",
-                    "Decryption",
-                    "Digital Signature",
-                    "Key Exchange"
-                ],
-                correctIndex: 2
-            },
-            {
-                question: "What is the primary weakness of the Caesar Cipher?",
-                options: [
-                    "It's too complex",
-                    "It requires special hardware",
-                    "It's very easy to break",
-                    "It cannot encrypt numbers"
-                ],
-                correctIndex: 2
-            },
-            {
-                question: "What does 'end-to-end encryption' typically mean?",
-                options: [
-                    "Encryption that works only on mobile devices",
-                    "Encryption that protects data from sender to recipient",
-                    "Encryption that requires multiple servers",
-                    "A type of quantum encryption"
-                ],
-                correctIndex: 1
-            }
-        ];
+        document.getElementById('postButton').addEventListener('click', () => {
+    const titleInput = document.getElementById('discussionTitle');
+    const contentInput = document.getElementById('discussionContent');
 
-        const quizContainer = document.getElementById('quiz');
-        const submitButton = document.getElementById('submit-btn');
-        const resultContainer = document.getElementById('result');
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
 
-        let currentQuiz = 0;
-        let score = 0;
+    if (title && content) {
+        const user = auth.currentUser ;
+        const userId = user ? user.uid : null; // Ensure userId is defined
 
-        function loadQuiz() {
-            quizContainer.innerHTML = '';
-            submitButton.disabled = true;
+        console.log('Adding comment:', { title, content, userId });
 
-            quizData.forEach((quizItem, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.classList.add('question');
-
-                const questionText = document.createElement('div');
-                questionText.classList.add('question-text');
-                questionText.textContent = `${index + 1}. ${quizItem.question}`;
-                questionDiv.appendChild(questionText);
-
-                const optionsDiv = document.createElement('div');
-                optionsDiv.classList.add('options');
-
-                quizItem.options.forEach((option, optionIndex) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('option');
-                    optionElement.textContent = option;
-                    optionElement.dataset.index = optionIndex;
-
-                    optionElement.addEventListener('click', () => {
-                        optionsDiv.querySelectorAll('.option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-
-                        optionElement.classList.add('selected');
-                        submitButton.disabled = false;
-                    });
-
-                    optionsDiv.appendChild(optionElement);
-                });
-
-                questionDiv.appendChild(optionsDiv);
-                quizContainer.appendChild(questionDiv);
-            });
-        }
-
-        function submitQuiz() {
-            let allAnswered = true;
-
-            quizData.forEach((quizItem, index) => {
-                const options = quizContainer.querySelectorAll('.options')[index].children;
-                const selectedOption = Array.from(options).find(opt => opt.classList.contains('selected'));
-
-                if (!selectedOption) {
-                    allAnswered = false;
-                    return;
-                }
-
-                const selectedIndex = parseInt(selectedOption.dataset.index);
-                const correctIndex = quizItem.correctIndex;
-
-                Array.from(options).forEach(opt => {
-                    opt.classList.remove('correct', 'incorrect');
-                });
-
-                if (selectedIndex === correctIndex) {
-                    selectedOption.classList.add('correct');
-                    score++;
-                } else {
-                    selectedOption.classList.add('incorrect');
-                    options[correctIndex].classList.add('correct');
-                }
-            });
-
-            if (!allAnswered) {
-                alert('Please answer all questions before submitting.');
-                return;
-            }
-
-            submitButton.style.display = 'none';
-            resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
-
-            const restartBtn = document.createElement('button');
-            restartBtn.textContent = 'Restart Quiz';
-            restartBtn.classList.add('restart-btn');
-            restartBtn.addEventListener('click', () => {
-                currentQuiz = 0;
-                score = 0;
-                submitButton.style.display = 'block';
-                resultContainer.innerHTML = '';
-                loadQuiz();
-            });
-            resultContainer.appendChild(restartBtn);
-        }
-
-        loadQuiz();
-
-        submitButton.addEventListener('click', submitQuiz);
+        addDoc(commentsRef, {
+            title,
+            content,
+            status: 'pending',
+            userId: userId, // Use the defined userId
+            createdAt: serverTimestamp()
+        })
+        .then(() => {
+            titleInput.value = '';
+            contentInput.value = '';
+            alert('Comment submitted successfully. Awaiting admin approval.');
+        })
+        .catch((error) => {
+            console.error('Error adding comment: ', error);
+            alert('Error submitting comment. Please try again later.');
+        });
+    } else {
+        alert('Please fill in both title and content.');
+    }
+});
     </script>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBJBPB_sYghfToEdEmLkvhlasEAuWlTdgA",
+        authDomain: "crypto-edu.firebaseapp.com",
+        projectId: "crypto-edu",
+        storageBucket: "crypto-edu.firebasestorage.app",
+        messagingSenderId: "601778919849",
+        appId: "1:601778919849:web:7b5b9cb626faf0c437ccb8",
+        measurementId: "G-YF3J7ZK7KM"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    const auth = getAuth(app); // Initialize auth here
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // User is not signed in, sign in anonymously
+            signInAnonymously(auth)
+                .then(() => {
+                    console.log('Signed in anonymously');
+                })
+                .catch((error) => {
+                    console.error('Error signing in anonymously: ', error);
+                });
+        } else {
+            // User is already signed in
+            console.log('User  is already signed in');
+        }
+    });
+
+    // Reference to the comments collection
+    const commentsRef = collection(db, 'comments');
+
+    document.getElementById('postButton').addEventListener('click', () => {
+        const titleInput = document.getElementById('discussionTitle');
+        const contentInput = document.getElementById('discussionContent');
+
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+
+        if (title && content) {
+            const user = auth.currentUser ; // Get the current user
+            const userId = user ? user.uid : null; // Ensure userId is defined
+
+            console.log('Adding comment:', { title, content, userId });
+
+            addDoc(commentsRef, {
+                title,
+                content,
+                status: 'pending',
+                userId: userId, // Use the defined userId
+                createdAt: serverTimestamp()
+            })
+            .then(() => {
+                titleInput.value = '';
+                contentInput.value = '';
+                alert('Comment submitted successfully. Awaiting admin approval.');
+            })
+            .catch((error) => {
+                console.error('Error adding comment: ', error);
+                alert('Error submitting comment. Please try again later.');
+            });
+        } else {
+            alert('Please fill in both title and content.');
+        }
+    });
+
+    // Function to load approved comments
+    function loadApprovedComments() {
+        const approvedCommentsQuery = query(commentsRef, where('status', '==', 'approved'));
+        onSnapshot(approvedCommentsQuery, (snapshot) => {
+            const discussionsContainer = document.getElementById('discussionsContainer');
+            discussionsContainer.innerHTML = '';
+
+            if (snapshot.empty) {
+                console.log("No approved comments found.");
+                discussionsContainer.innerHTML = '<p>No approved comments available.</p>';
+            } else {
+                snapshot.forEach((doc) => {
+                    const comment = doc.data();
+                    const discussionElement = document.createElement('div');
+                    discussionElement.className = 'discussion';
+ discussionElement.innerHTML = `
+                        <h3>${comment.title}</h3>
+                        <p>${comment.content}</p>
+v                    `;
+                    discussionsContainer.appendChild(discussionElement);
+                });
+            }
+        });
+    }
+
+    // Load approved comments on page load
+    window.onload = loadApprovedComments;
+</script>
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
